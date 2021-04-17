@@ -1,0 +1,13 @@
+[Unit]
+
+Description=run_system_manager
+
+[Service]
+
+Type=oneshot
+
+ExecStart=python3 /home/pi/project/makeblock/system_manager.py
+
+[Install]
+
+WantedBy=multi-user.target
