@@ -18,4 +18,11 @@ def main():
             if (item_type is str):
                 send_data = "rsp:" + array_data
                 send(send_data)
-main()
+
+try:  
+    main()
+except Exception as e:
+    print("bluetooth_exit")
+    bluetooth.bluetooth_exit()
+    print(e)
+    pass
