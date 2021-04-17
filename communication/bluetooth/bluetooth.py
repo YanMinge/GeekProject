@@ -556,37 +556,14 @@ def monitor():
         get_connect_status()
         time.sleep(0.001)
 
-def _async_raise(tid, exctype):
-    """raises the exception, performs cleanup if needed"""
-    tid = ctypes.c_long(tid)
-    if not inspect.isclass(exctype):
-        exctype = type(exctype)
-    res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(exctype))
-    if res == 0:
-        raise ValueError("invalid thread id")
-    elif res != 1:
-    # """if it returns a number greater than one, you're in trouble,
-    # and you should call it again with exc=NULL to revert the effect"""
-    ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, None)
-    raise SystemError("PyThreadState_SetAsyncExc failed")
-
-def stop_thread(thread):
-    _async_raise(thread.ident, SystemExit)
-
 def bluetooth_exit():
-    global monitor_thread
     global ad_manager_interface    
     global ble_advertisement
     global advertisement_status
     global ble_register
-    if monitor_thread is not None:
-        stop_thread(monitor_thread)
-    if ad_manager_interface and ble_advertisement and advertisement_status == True:
-        log.info_print("StartNotify UnregisterAdvertisement")
-        ad_manager_interface.UnregisterAdvertisement(ble_advertisement.get_path())
-        ble_advertisement.Release()
-        advertisement_status = False
-        ble_register = False
+    mainloop.quit()
+    advertisement_status = False
+    sble_register = False
 
 def loop():
     global mainloop
