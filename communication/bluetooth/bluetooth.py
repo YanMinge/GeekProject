@@ -561,7 +561,7 @@ def bluetooth_exit():
     global ble_advertisement
     global advertisement_status
     global ble_register
-    mainloop.quit()
+    # mainloop.quit()
     advertisement_status = False
     sble_register = False
 
