@@ -180,7 +180,7 @@ class BLEAdvertisement(Advertisement):
         #self.add_service_uuid('180F')
         self.add_manufacturer_data(0x424D, [0x30, 0x31, 0x6C, 0x00, 0xFA,0x10,0x1B,0x00])
         #self.add_service_data('9999', [0x00, 0x01, 0x02, 0x03, 0x04])
-        local_name = 'Makeblock_LE' + get_ble_mac(bus)
+        local_name = 'GeekPlay_' + get_ble_mac(bus)
         self.add_local_name(local_name)
         self.add_discoverable(True)
         self.include_tx_power = True

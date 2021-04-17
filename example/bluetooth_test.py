@@ -7,9 +7,15 @@ sys.path.append(r"../")
 from communication.bluetooth import bluetooth
 
 def main():
-   bluetooth.setup()
-   while True:
-       print("hello GeekPlay")
-       time.sleep(1)
-
+    bluetooth.setup()
+    while True:
+        array_data = bluetooth.recv()
+        if array_data is not None:
+            item_type = type(array_data)
+            print(array_data)
+            if (item_type is int):
+                item_type = bytes((array_data,))
+            if (item_type is str):
+                send_data = "rsp:" + array_data
+                send(send_data)
 main()
